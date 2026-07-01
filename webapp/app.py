@@ -249,7 +249,9 @@ if image_data is not None:
                 st.caption("*(Heat Map: Semakin terang warna, nilai piksel semakin mendekati 255)*")
                 df = pd.DataFrame(matrix_data)
                 styled_df = df.style.background_gradient(cmap='plasma', axis=None, vmin=0, vmax=255)
-                st.dataframe(styled_df, use_container_width=True)
+                
+                # Tambahkan fitur seleksi pada dataframe untuk melihat nilai interaktif
+                selection = st.dataframe(styled_df, use_container_width=True, on_select="rerun", selection_mode="single-cell")
             
         with col_b2:
             st.markdown("##### 📈 Histogram Distribusi (Grayscale)")
@@ -261,8 +263,38 @@ if image_data is not None:
             
             st.markdown("##### 🧭 Tetangga Piksel (N4 Neighborhood)")
             if matrix_data and len(matrix_data) >= 7:
-                cx, cy = info['width'] // 2, info['height'] // 2
-                val_t = matrix_data[2][3]; val_l = matrix_data[3][2]; val_c = matrix_data[3][3]; val_r = matrix_data[3][4]; val_b = matrix_data[4][3]
+                # Ambil koordinat seleksi, default ke titik tengah (3,3)
+                sel_r, sel_c = 3, 3
+                if selection and "selection" in selection:
+                    sel = selection["selection"]
+                    # Jika menggunakan single-cell, Streamlit menyimpannya di 'cells'
+                    if "cells" in sel and len(sel["cells"]) > 0:
+                        sel_r = sel["cells"][0][0]
+                        sel_c = int(sel["cells"][0][1])
+                    else:
+                        if "rows" in sel and len(sel["rows"]) > 0:
+                            sel_r = sel["rows"][0]
+                        if "columns" in sel and len(sel["columns"]) > 0:
+                            sel_c = int(sel["columns"][0])
+
+                center_cx, center_cy = info['width'] // 2, info['height'] // 2
+                
+                # Hitung koordinat global pixel yang dipilih
+                cx = center_cx + (sel_c - 3)
+                cy = center_cy + (sel_r - 3)
+                
+                max_y, max_x = gray_for_matrix.shape[:2]
+                
+                def get_pixel_val(x, y):
+                    if 0 <= x < max_x and 0 <= y < max_y:
+                        return int(gray_for_matrix[y, x])
+                    return 0
+
+                val_c = get_pixel_val(cx, cy)
+                val_t = get_pixel_val(cx, cy - 1)
+                val_b = get_pixel_val(cx, cy + 1)
+                val_l = get_pixel_val(cx - 1, cy)
+                val_r = get_pixel_val(cx + 1, cy)
                 
                 html_code = f"""
                 <div style="background: rgba(30, 41, 59, 0.5); padding: 15px; border-radius: 12px; border: 1px solid rgba(255,255,255,0.05); display: flex; justify-content: center; margin-bottom: 20px;">
@@ -422,11 +454,12 @@ if image_data is not None:
             col_m1, col_m2 = st.columns([1, 1.5])
             with col_m1:
                 st.markdown("##### 🧩 Solid Mask")
-                st.image(final_mask)
+                # Gunakan clamp=True dan use_container_width=True agar ter-render optimal
+                st.image(final_mask, clamp=True, channels="GRAY", use_container_width=True)
                 st.caption("Erosi & Dilasi memastikan pil yang menempel bisa terpisah.")
             with col_m2:
                 st.markdown("##### ✅ Final Bounding Box")
-                st.image(convert_to_rgb(img_segmented))
+                st.image(convert_to_rgb(img_segmented), clamp=True, channels="RGB", use_container_width=True)
                 
         st.markdown("---")
         st.markdown("### 📊 Statistik Analisis")
