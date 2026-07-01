@@ -152,7 +152,7 @@ st.markdown("""
 st.markdown("""
 <div class="main-header">
     <h1>💊 MediScan: Analisis Pengolahan Citra</h1>
-    <p>Sistem cerdas evaluasi piksel, transformasi geometri, dan deteksi morfologi obat (Sesuai Syarat UAS Pengolahan Citra Digital).</p>
+    <p>Sistem cerdas evaluasi piksel, transformasi geometri, dan deteksi morfologi obat.</p>
 </div>
 """, unsafe_allow_html=True)
 
