@@ -1,3 +1,16 @@
+"""
+FILE: segmentation.py
+TUJUAN: Modul orkestrasi untuk menyatukan semua tahap Segmentasi Citra berbasis tepi (Edge-Based Segmentation).
+
+LANGKAH-LANGKAH UTAMA:
+1. create_robust_mask: Menjalankan deteksi tepi Canny dan menambahkan operasi Morfologi Closing untuk menambal pixel garis tepi yang terputus agar objek menjadi solid tertutup.
+2. segment_edge_based:
+   a. Memanggil fungsi mask dari algoritma di atas.
+   b. Memanggil fungsi pemisah Watershed dari modul edge_detection.
+   c. Menyaring objek berdasarkan luas area untuk membuang noise kotoran kecil (Filtering area).
+   d. Memanggil modul klasifikasi bentuk geometri untuk menentukan apakah objek tersebut Pil Bulat atau Kapsul.
+   e. Menggambar kotak pembatas (Bounding Box) dan label teks di atas gambar asli.
+"""
 import cv2
 import numpy as np
 from processing.edge_detection import separate_and_find_contours

@@ -1,3 +1,14 @@
+"""
+FILE: geometry.py
+TUJUAN: Modul untuk operasi geometri, transformasi spasial, dan klasifikasi bentuk geometri objek.
+
+LANGKAH-LANGKAH UTAMA:
+1. resize_image: Mengubah ukuran resolusi gambar secara keseluruhan menjadi ukuran spesifik.
+2. scale_image: Melakukan operasi penskalaan (memperbesar atau memperkecil matriks gambar) menggunakan faktor pengali.
+3. rotate_image: Melakukan operasi rotasi matriks gambar menggunakan titik pusat matriks dan derajat rotasi.
+4. negate_image: Membalikkan nilai warna citra menjadi invers (negasi/klise).
+5. classify_pill_shape: Menghitung Aspect Ratio (lebar dibagi tinggi) dari koordinat kotak pembatas (Bounding Box) untuk memutuskan klasifikasi bentuk (Pil Bulat atau Kapsul).
+"""
 import cv2
 
 def resize_image(image, target_width=800):

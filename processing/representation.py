@@ -1,3 +1,13 @@
+"""
+FILE: representation.py
+TUJUAN: Modul untuk representasi citra digital (Metadata & Matriks Piksel).
+
+LANGKAH-LANGKAH UTAMA:
+1. convert_to_grayscale: Mengubah citra berwarna (RGB/BGR) menjadi format Grayscale (1 channel).
+2. convert_to_rgb: Mengubah citra dari format BGR (default OpenCV) ke RGB agar warna ditampilkan benar di web.
+3. get_image_info: Mengekstrak informasi gambar (metadata) seperti ukuran resolusi (lebar x tinggi) dan jumlah total piksel.
+4. extract_pixel_matrix: Mengambil matriks nilai intensitas piksel tetangga (neighbourhood) berdasarkan titik koordinat yang dipilih pengguna.
+"""
 import cv2
 import numpy as np
 def convert_to_grayscale(image_bgr):

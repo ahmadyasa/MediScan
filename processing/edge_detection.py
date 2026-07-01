@@ -1,3 +1,17 @@
+"""
+FILE: edge_detection.py
+TUJUAN: Modul inti untuk menjalankan algoritma Deteksi Tepi dan filtering citra.
+
+LANGKAH-LANGKAH UTAMA:
+1. detect_edges_sobel: Mengeksekusi konvolusi menggunakan kernel Sobel untuk mendeteksi gradien vertikal dan horizontal orde pertama.
+2. detect_edges_prewitt: Mengeksekusi konvolusi menggunakan kernel Prewitt untuk mendeteksi tepi citra.
+3. detect_edges_laplacian: Menggunakan filter Laplacian untuk mencari turunan orde kedua (tepi tajam).
+4. separate_and_find_contours: 
+   a. Menerapkan Distance Transform untuk mencari titik terdalam dari setiap objek putih (pil).
+   b. Membuat markers (penanda) puncak objek.
+   c. Menerapkan Algoritma Watershed untuk memotong (memisahkan) area batas di mana dua pil saling bersentuhan.
+   d. Mencari titik kontur (*contours*) dari objek yang telah terpotong sempurna.
+"""
 import cv2
 import numpy as np
 

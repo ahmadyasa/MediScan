@@ -1,3 +1,15 @@
+"""
+FILE: app.py
+TUJUAN: Mengatur antarmuka pengguna (Frontend) menggunakan Streamlit.
+
+LANGKAH-LANGKAH UTAMA:
+1. Konfigurasi Halaman: Mengatur layout, judul, dan styling CSS kustom untuk antarmuka web.
+2. Sidebar Control: Menyediakan menu untuk upload gambar, dan mengatur parameter seperti kernel deteksi tepi.
+3. Render Tab 1 (Representasi): Menampilkan gambar asli, mengekstrak resolusi, dan menampilkan matriks nilai RGB saat gambar diklik.
+4. Render Tab 2 (Operasi Geometri & Aritmatika): Menjalankan operasi scaling, rotasi, flipping, kuantisasi, grayscale, dan negasi.
+5. Render Tab 3 (Deteksi Tepi): Menerapkan filter bilateral, deteksi tepi (Sobel, Prewitt, Laplacian, Canny), dan operasi Morfologi Closing.
+6. Render Tab 4 (Segmentasi): Menampilkan hasil pemisahan objek menggunakan Watershed, deteksi kontur, klasifikasi bentuk, dan mengekspor hasil ke JSON.
+"""
 import streamlit as st
 import cv2
 import numpy as np

@@ -1,3 +1,11 @@
+"""
+FILE: digitalization.py
+TUJUAN: Modul untuk operasi digitalisasi khususnya manipulasi level warna (tonal) dan pencahayaan.
+
+LANGKAH-LANGKAH UTAMA:
+1. apply_quantization: Melakukan pengurangan kedalaman level warna (kuantisasi) pada citra menggunakan operasi matematika pembagian dan perkalian lantai.
+2. apply_clahe (jika ada): Menggunakan algoritma Contrast Limited Adaptive Histogram Equalization untuk meratakan pencahayaan gambar.
+"""
 import cv2
 import numpy as np
 
